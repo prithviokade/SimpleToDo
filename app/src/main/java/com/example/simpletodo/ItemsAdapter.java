@@ -1,4 +1,3 @@
-
 package com.example.simpletodo;
 
 import android.view.LayoutInflater;
@@ -67,4 +66,3 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ViewHolder> 
     }
 
 }
-

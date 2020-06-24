@@ -13,7 +13,16 @@ import java.util.List;
 
 public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ViewHolder> {
 
+    public interface OnLongClickListener {
+        void onItemLongClicked(int position);
+    }
+
     List <String> items;
+    OnLongClickListener longClickListener;
+    public ItemsAdapter(List <String> items, OnLongClickListener longClickListener) {
+        this.items = items;
+        this.longClickListener = longClickListener;
+    }
 
     @NonNull
     @Override
@@ -45,7 +54,17 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ViewHolder> 
         // update the view inside of the view holder
         public void bind(String item) {
             textview.setText(item);
+            textview.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View view) {
+                    // notify listener what was long clicked (can't directly remove)
+                    longClickListener.onItemLongClicked(getAdapterPosition());
+                    // signal that the callback is consuming the long click
+                    return true;
+                }
+            });
         }
     }
 
 }
+
